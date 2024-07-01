@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.mainContainer}>
@@ -14,7 +14,9 @@ const Home = () => {
             <Image source={require('../assets/images/Filter.png')} style={styles.image} />
           </View>
         </View>
-        {/* Content with pictures and text */}
+        
+        {/* The rest of your content remains the same */}
+        
         <View style={styles.pictureContainer}>
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
@@ -30,12 +32,11 @@ const Home = () => {
               <Image source={require('../assets/images/dress2.png')} style={styles.contentImage} />
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
             </View>
-            <Text style={styles.imageTextRight}>Black</Text>
+            <Text style={styles.imageText}>Black</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
             <Text style={styles.price}>$120</Text>
           </View>
         </View>
-        {/* Add more content here as needed */}
 
         <View style={styles.pictureContainer}>
           <View style={styles.imageTextContainer}>
@@ -52,7 +53,7 @@ const Home = () => {
               <Image source={require('../assets/images/dress4.png')} style={styles.contentImage} />
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
             </View>
-            <Text style={styles.imageTextRight}>Lamerei</Text>
+            <Text style={styles.imageText}>Lamerei</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
             <Text style={styles.price}>$120</Text>
           </View>
@@ -73,7 +74,7 @@ const Home = () => {
               <Image source={require('../assets/images/dress6.png')} style={styles.contentImage} />
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
             </View>
-            <Text style={styles.imageTextRight}>Lopo</Text>
+            <Text style={styles.imageText}>Lopo</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
             <Text style={styles.price}>$120</Text>
           </View>
@@ -94,7 +95,7 @@ const Home = () => {
               <Image source={require('../assets/images/dress3.png')} style={styles.contentImage} />
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
             </View>
-            <Text style={styles.imageTextRight}>lame</Text>
+            <Text style={styles.imageText}>lame</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
             <Text style={styles.price}>$120</Text>
           </View>
@@ -107,6 +108,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
+    marginBottom:50,
   },
   mainContainer: {
     flex: 1,
@@ -132,7 +134,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'black',
     paddingLeft: 20,
-    // fontStyle: 'Amasis MT Pro' // Font style might not be available by default
   },
   image: {
     width: 40,
@@ -142,11 +143,12 @@ const styles = StyleSheet.create({
   pictureContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginTop: 10,
   },
   imageTextContainer: {
-    alignItems: 'center',
+    width: 175,
+    alignItems: 'flex-start',
   },
   imageWrapper: {
     position: 'relative',
@@ -166,21 +168,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
     color: 'black',
-    marginRight:85,
+    textAlign: 'left', 
   },
-  imageTextRight:{
-    fontSize: 16,
-    marginTop: 5,
-    color: 'black',
-    marginRight:130,
+  secondText: {
+    color: 'grey',
+    textAlign: 'left', 
   },
-  secondText:{
-    color:'grey',
+  price: {
+    color: 'red',
+    textAlign: 'left', 
   },
-  price:{
-    marginRight:140,
-    color:'red',
-  }
 });
 
 export default Home;
