@@ -1,8 +1,43 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, {useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Checkout = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const storedCartItems = await AsyncStorage.getItem('cart');
+        if (storedCartItems) {
+          setCartItems(JSON.parse(storedCartItems));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCartItems();
+  }, []);
+
+  const removeFromCart = async (productId) => {
+    try {
+      let updatedCartItems = cartItems.filter(item => item.id !== productId);
+      await AsyncStorage.setItem('cart', JSON.stringify(updatedCartItems));
+      setCartItems(updatedCartItems);
+      Alert.alert('Item removed from cart');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => total + item.price, 0);
+  };
+
   return (
+    <ScrollView style={styles.scrollView}>
     <View style={styles.container}>
       <Text style={styles.headerText}>CHECKOUT</Text>
       <View style={styles.bigContainer}>
@@ -72,6 +107,7 @@ const Checkout = () => {
         <Text style={styles.taskBarText}>CHECKOUT</Text>
       </View>
     </View>
+    </ScrollView>
   );
 }
 
@@ -80,6 +116,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginTop: 10,
+  },
+  scrollView:{
+    flex:1,
   },
   headerText: {
     fontSize: 25,
@@ -129,6 +168,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '90%',
     marginVertical: 20,
+    marginTop:40,
+    marginBottom:30,
   },
   totalTextLeft: {
     fontSize: 20,
@@ -138,6 +179,7 @@ const styles = StyleSheet.create({
   totalTextRight: {
     fontSize: 20,
     fontWeight: '500',
+    color:'red',
   },
   taskBar: {
     flexDirection: 'row',

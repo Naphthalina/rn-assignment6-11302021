@@ -1,7 +1,38 @@
-import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({ navigation }) => {
+  const [products, setProducts] = useState([
+    { id: 1, name: 'Office Wear', price: 120, image: require('../assets/images/dress1.png') },
+    { id: 2, name: 'Black', price: 120, image: require('../assets/images/dress2.png') },
+    { id: 3, name: 'Church Wear', price: 120, image: require('../assets/images/dress3.png') },
+    { id: 4, name: 'Lamerei', price: 120, image: require('../assets/images/dress4.png') },
+    { id: 5, name: '21WN', price: 120, image: require('../assets/images/dress5.png') },
+    { id: 6, name: 'Lopo', price: 120, image: require('../assets/images/dress6.png') },
+    { id: 7, name: '21WN', price: 120, image: require('../assets/images/dress7.png') },
+    { id: 8, name: 'Lame', price: 120, image: require('../assets/images/dress3.png') },
+  ]);
+
+  const addToCart = async (product) => {
+    try {
+      const cartItems = await AsyncStorage.getItem('cart');
+      let cart = cartItems ? JSON.parse(cartItems) : [];
+      const itemExists = cart.some(item => item.id === product.id);
+      
+      if (itemExists) {
+        Alert.alert('Item already in cart');
+      } else {
+        cart.push(product);
+        await AsyncStorage.setItem('cart', JSON.stringify(cart));
+        Alert.alert('Item added to cart');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.mainContainer}>
@@ -21,7 +52,9 @@ const Home = ({ navigation }) => {
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
               <Image source={require('../assets/images/dress1.png')} style={styles.contentImage} />
+              <TouchableOpacity onPress={() => addToCart(products)}>
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
+              </TouchableOpacity>
             </View>
             <Text style={styles.imageText}>Office Wear</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
@@ -30,7 +63,9 @@ const Home = ({ navigation }) => {
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
               <Image source={require('../assets/images/dress2.png')} style={styles.contentImage} />
+              <TouchableOpacity onPress={() => addToCart(products)}>
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
+              </TouchableOpacity>
             </View>
             <Text style={styles.imageText}>Black</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
@@ -42,7 +77,9 @@ const Home = ({ navigation }) => {
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
               <Image source={require('../assets/images/dress3.png')} style={styles.contentImage} />
+              <TouchableOpacity onPress={() => addToCart(products)}>
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
+              </TouchableOpacity>
             </View>
             <Text style={styles.imageText}>Church Wear</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
@@ -51,7 +88,9 @@ const Home = ({ navigation }) => {
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
               <Image source={require('../assets/images/dress4.png')} style={styles.contentImage} />
+              <TouchableOpacity onPress={() => addToCart(products)}>
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
+              </TouchableOpacity>
             </View>
             <Text style={styles.imageText}>Lamerei</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
@@ -63,7 +102,9 @@ const Home = ({ navigation }) => {
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
               <Image source={require('../assets/images/dress5.png')} style={styles.contentImage} />
+              <TouchableOpacity onPress={() => addToCart(products)}>
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
+              </TouchableOpacity>
             </View>
             <Text style={styles.imageText}>21WN</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
@@ -72,7 +113,9 @@ const Home = ({ navigation }) => {
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
               <Image source={require('../assets/images/dress6.png')} style={styles.contentImage} />
+              <TouchableOpacity onPress={() => addToCart(products)}>
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
+              </TouchableOpacity>
             </View>
             <Text style={styles.imageText}>Lopo</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
@@ -84,7 +127,9 @@ const Home = ({ navigation }) => {
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
               <Image source={require('../assets/images/dress7.png')} style={styles.contentImage} />
+              <TouchableOpacity onPress={() => addToCart(products)}>
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
+              </TouchableOpacity>
             </View>
             <Text style={styles.imageText}>21WN</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
@@ -93,7 +138,9 @@ const Home = ({ navigation }) => {
           <View style={styles.imageTextContainer}>
             <View style={styles.imageWrapper}>
               <Image source={require('../assets/images/dress3.png')} style={styles.contentImage} />
+              <TouchableOpacity onPress={() => addToCart(products)}>
               <Image source={require('../assets/images/add_circle.png')} style={styles.smallImage} />
+              </TouchableOpacity>
             </View>
             <Text style={styles.imageText}>lame</Text>
             <Text style={styles.secondText}>reversible angore cardigan</Text>
